@@ -1,8 +1,0 @@
-[phases.setup]
-nixPkgs = ["..."]
-
-[phases.build]
-cmds = ["echo 'Using custom Dockerfile'"]
-
-[start]
-cmd = "echo 'Will be overridden by Dockerfile'"

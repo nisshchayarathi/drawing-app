@@ -56,7 +56,7 @@ export default function Signin() {
         Sign in
       </button>
       <p>
-        Don't have an account?{" "}
+        Don&apos;t have an account?{" "}
         <a href="/signup" style={{ color: "blue", cursor: "pointer" }}>
           Sign up
         </a>

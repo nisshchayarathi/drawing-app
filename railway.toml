@@ -1,6 +1,0 @@
-[build]
-builder = "dockerfile"
-dockerfilePath = "Dockerfile.http-backend"
-
-[deploy]
-startCommand = "node apps/http-backend/dist/index.js"

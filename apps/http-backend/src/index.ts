@@ -112,7 +112,6 @@ app.get("/chats/:roomId", async (req, res) => {
     orderBy: {
       id: "asc",
     },
-    take: 50,
     include: {
       user: {
         select: {
@@ -136,11 +135,54 @@ app.get("/room/:slug", async (req, res) => {
     },
   });
   if (!room) {
-    return null;
+    res.status(404).json({
+      message: "Room not found",
+    });
+    return;
   }
   res.json({
     room,
   });
+});
+
+app.delete("/chats/:messageId", async (req, res) => {
+  const messageId = Number(req.params.messageId);
+  try {
+    await prismaClient.chat.delete({
+      where: {
+        id: messageId,
+      },
+    });
+    res.json({
+      success: true,
+    });
+  } catch (e) {
+    res.status(500).json({
+      message: "Failed to delete message",
+    });
+  }
+});
+
+app.put("/chats/:messageId", async (req, res) => {
+  const messageId = Number(req.params.messageId);
+  const { message } = req.body;
+  try {
+    await prismaClient.chat.update({
+      where: {
+        id: messageId,
+      },
+      data: {
+        message,
+      },
+    });
+    res.json({
+      success: true,
+    });
+  } catch (e) {
+    res.status(500).json({
+      message: "Failed to update message",
+    });
+  }
 });
 
 const PORT = process.env.PORT || 3001;
